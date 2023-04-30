@@ -7,11 +7,10 @@ public class main
 
 	public static void main(String args[])
 	{
-		board scacc = new board();
-
+	
+		board scacc = new board();	
 		
-		
-		scacc.partita();
+		scacc.new_partita();
 		
 	}	
 }

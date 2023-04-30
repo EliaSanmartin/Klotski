@@ -15,13 +15,16 @@ public class board
 	
 	public board()
 	{
+		salvataggio.contenuto.set(0, "X,0");//formazione e num_mosse
 		
 		imposta_formazione(1);
+		
 	}	
 	
 	
 	public void imposta_formazione(int formazione)
 	{
+		salvataggio.imposta_formazione(formazione);
 		pezzi.clear();
 		//svuoto la matrice
 		for(int i=0;i<mat.length;i++)
@@ -29,7 +32,6 @@ public class board
 				mat[i][j] = 0;
 
 		num_mosse = 0;//resetto numero mosse
-		
 		//-----------reset di tutti i pezzi------------
 		for(int i=0;i<pezzi.size();i++)
 			pezzi.get(i).reset();
@@ -44,16 +46,16 @@ public class board
 			for(int i=0; i<4;i++)
 				pezzi.add(new pezzo(1,1));
 			
-			pezzi.get(0).imposta_coord(new coord(1, 0), mat, 1);
-			pezzi.get(1).imposta_coord(new coord(1, 2), mat, 2);
-			pezzi.get(2).imposta_coord(new coord(0, 0), mat, 3);
-			pezzi.get(3).imposta_coord(new coord(3, 0), mat, 4);
-			pezzi.get(4).imposta_coord(new coord(0, 2), mat, 5);
-			pezzi.get(5).imposta_coord(new coord(3, 2), mat, 6);			
-			pezzi.get(6).imposta_coord(new coord(0, 4), mat, 7);
-			pezzi.get(7).imposta_coord(new coord(1, 3), mat, 8);
-			pezzi.get(8).imposta_coord(new coord(2, 3), mat, 9);
-			pezzi.get(9).imposta_coord(new coord(3, 4), mat, 10);
+			pezzi.get(0).imposta_coord(new mossa(new coord(1, 0),'N', 1), mat);
+			pezzi.get(1).imposta_coord(new mossa(new coord(1, 2),'N', 2), mat);
+			pezzi.get(2).imposta_coord(new mossa(new coord(0, 0),'N', 3), mat);
+			pezzi.get(3).imposta_coord(new mossa(new coord(3, 0),'N', 4), mat);
+			pezzi.get(4).imposta_coord(new mossa(new coord(3, 2),'N', 5), mat);
+			pezzi.get(5).imposta_coord(new mossa(new coord(0, 2),'N', 6), mat);
+			pezzi.get(6).imposta_coord(new mossa(new coord(0, 4),'N', 7), mat);
+			pezzi.get(7).imposta_coord(new mossa(new coord(1, 3),'N', 8), mat);
+			pezzi.get(8).imposta_coord(new mossa(new coord(2, 3),'N', 9), mat);
+			pezzi.get(9).imposta_coord(new mossa(new coord(3, 4),'N', 10), mat);
 			
 		}
 	}
@@ -69,11 +71,19 @@ public class board
 				sel_pezzo = Integer.parseInt(s.nextLine());
 			}
 		catch(NumberFormatException ex) {}
-		
+		if(sel_pezzo == 54)//indietro
+		{
+			undo();
+			return 0;
+		}
 		while((sel_pezzo < 1) || (sel_pezzo > 10))
 		{
-			if (sel_pezzo == 99)
-				break;
+			if(sel_pezzo == 54)//indietro
+			{
+				undo();
+				return 0;
+			}
+
 			System.out.print("\nPezzo non valido\nSeleziona pezzo da muovere:");
 			try
 				{
@@ -123,6 +133,11 @@ public class board
 		
 		while(true)
 		{
+			if(mossa == 54)//indietro
+			{
+				undo();
+				return 0;
+			}
 			if(mossa != 0)
 				for(int i=0;i<mat.length ;i++)
 					for(int j=0;j<mat[0].length;j++)
@@ -138,32 +153,42 @@ public class board
 		
 	
 	}
+	public void undo()
+	{
+		if(mosse.size() != 0)
+		{
+			mossa m = mosse.get(mosse.size()-1).reverse();
 	
-	public void partita()
+			pezzi.get(m.num_pezzo-1).imposta_coord(m, mat);
+			pulisci_matrice();		
+			salvataggio.print();
+			print();
+			mosse.remove(mosse.size()-1);
+			num_mosse += 1;	
+			salvataggio.add_mossa(num_mosse);
+			salvataggio.contenuto.remove(salvataggio.contenuto.size() - 1);
+		}
+	}
+	
+	public void new_partita()
 	{
 		int sel_pezzo = 0;
 		int sel_mossa = 0;
 		
 		while(true)
 		{
-			
+		
 			pulisci_matrice();
 			
-			for(int i=0; i<mosse.size();i++)
-			{
-				salvataggio.print();
-/*				System.out.print("\n");
-				System.out.print(mosse.get(i).c_in.x);
-				System.out.print(mosse.get(i).c_in.y);
-				System.out.print(mosse.get(i).dir);
-				System.out.print(mosse.get(i).num_pezzo);
-*/
-			}
+ 			salvataggio.print();
+
 			print();
 			
 			//--------------SELEZIONE PEZZO DA MUOVERE----------------
-			sel_pezzo = seleziona_pezzo();
 			
+			sel_pezzo = seleziona_pezzo();
+			while(sel_pezzo == 0)
+				sel_pezzo = seleziona_pezzo();
 			//---------------CONTROLLO MOSSE POSSIBILI e le SEGNA----------------------
 			while(pezzi.get(sel_pezzo - 1).controlla_mosse(mat) == true)
 			{
@@ -174,27 +199,19 @@ public class board
 				if(sel_mossa == 50)//mossa verso l'alto
 				{
 					mosse.add(new mossa(pezzi.get(sel_pezzo - 1).coord.copy(), 'U', sel_pezzo));
-					pezzi.get(sel_pezzo - 1).imposta_coord(pezzi.get(sel_pezzo - 1).coord.up(), mat, sel_pezzo);
-					break;
+					
 				}
 				else if(sel_mossa == 51)//mossa verso destra
 				{
 					mosse.add(new mossa(pezzi.get(sel_pezzo - 1).coord.copy(), 'R', sel_pezzo));
-					pezzi.get(sel_pezzo - 1).imposta_coord(pezzi.get(sel_pezzo - 1).coord.right(), mat, sel_pezzo);
-					break;
 				}
 				else if(sel_mossa == 52)//mossa verso il basso
 				{
 					mosse.add(new mossa(pezzi.get(sel_pezzo - 1).coord.copy(), 'D', sel_pezzo));
-					pezzi.get(sel_pezzo - 1).imposta_coord(pezzi.get(sel_pezzo - 1).coord.down(), mat, sel_pezzo);					
-					break;
 				}
 				else if(sel_mossa == 53)//mossa verso sinistra
 				{
-		
 					mosse.add(new mossa(pezzi.get(sel_pezzo - 1).coord.copy(), 'L', sel_pezzo));
-					pezzi.get(sel_pezzo - 1).imposta_coord(pezzi.get(sel_pezzo - 1).coord.left(), mat, sel_pezzo);		
-					break;
 				}
 				else
 				{
@@ -203,11 +220,15 @@ public class board
 				
 				if((sel_mossa >= 50) && (sel_mossa <=53))
 				{
+					pezzi.get(sel_pezzo - 1).imposta_coord(mosse.get(mosse.size() - 1), mat);
 					num_mosse += 1;	
+					salvataggio.add_mossa(num_mosse);
 					salvataggio.add(mosse.get(mosse.size()-1));
-					
+					break;
 				}
+				
 			}	
+			
 		}
 	}
 	
