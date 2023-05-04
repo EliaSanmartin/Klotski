@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -27,7 +28,8 @@ public class Controller implements Initializable {
 	//variabili per il pannello che fa visualizzare il gioco nella scena play
 	@FXML
 	private AnchorPane gameViewer;
-	private Text moves = new Text();
+	private Text moves = new Text("fdfdfdfdfdfdfdfffffffffffffffffffffffffffffffffff");
+	private StackPane mos = new StackPane(moves);
 	
 	private Grid grid;
 	

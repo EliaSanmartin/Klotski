@@ -63,26 +63,53 @@ public class Level {
 			pieces.get(8).imposta_coord(new mossa(new coord(2, 3),'N', 9), mat);
 			pieces.get(9).imposta_coord(new mossa(new coord(3, 4),'N', 10), mat);
 			
-			coord c = pieces.get(0).coord;
-			rectangles.add(new GeometricShape(pieces.get(0).dim1*100, pieces.get(0).dim2*100, pieces.get(0).coord.y*100 , pieces.get(0).coord.x*100, Color.CORAL, 1)); 
-			for(int i=1; i<pieces.size();i++)
-				rectangles.add(new GeometricShape(pieces.get(i).dim1*100, pieces.get(i).dim2*100, pieces.get(i).coord.y*100 , pieces.get(i).coord.x*100, Color.LIGHTSEAGREEN, i+1));
-
-		    return;
+		
+		    break;
 	    
 		  case 2:
 		    // secondo livello
-		 		  	return;
+			  pieces.add(new Piece(2,2));
+				 pieces.add(new Piece(2,1));
+				 for(int i=0; i<4;i++)
+					 pieces.add(new Piece(1,2));
+				 
+				 
+				 
+			 	pieces.get(0).imposta_coord(new mossa(new coord(1, 0),'N', 1), mat);
+				pieces.get(1).imposta_coord(new mossa(new coord(1, 2),'N', 2), mat);
+				pieces.get(2).imposta_coord(new mossa(new coord(0, 0),'N', 3), mat);
+				pieces.get(3).imposta_coord(new mossa(new coord(3, 0),'N', 4), mat);
+				pieces.get(4).imposta_coord(new mossa(new coord(3, 2),'N', 5), mat);
+				pieces.get(5).imposta_coord(new mossa(new coord(0, 2),'N', 6), mat);
+				
+				
+
+			    break;
 			
 		  case 3:
 			// terzo livello
-		    return;
+			  // secondo livello
+			  pieces.add(new Piece(1,1));
+			  pieces.add(new Piece(1,2));
+			  pieces.add(new Piece(1,1));
+			  pieces.add(new Piece(1,1));
+				 
+				 
+			 	pieces.get(0).imposta_coord(new mossa(new coord(1, 0),'N', 1), mat);
+			 	pieces.get(1).imposta_coord(new mossa(new coord(1, 1),'N', 2), mat);
+			 	pieces.get(2).imposta_coord(new mossa(new coord(0, 2),'N', 3), mat);
+			 	pieces.get(3).imposta_coord(new mossa(new coord(2, 2),'N', 4), mat);
+			
+		    break;
 		    
 		  default:
 			 System.out.println("Qualcosa è andato storto.");
 			 return;
 		}
-		 
+		coord c = pieces.get(0).coord;
+		rectangles.add(new GeometricShape(pieces.get(0).dim1*100, pieces.get(0).dim2*100, pieces.get(0).coord.y*100 , pieces.get(0).coord.x*100, Color.CORAL, 1)); 
+		for(int i=1; i<pieces.size();i++)
+			rectangles.add(new GeometricShape(pieces.get(i).dim1*100, pieces.get(i).dim2*100, pieces.get(i).coord.y*100 , pieces.get(i).coord.x*100, Color.LIGHTSEAGREEN, i+1));
 	}
 	
 	public List<Piece> getPieces()

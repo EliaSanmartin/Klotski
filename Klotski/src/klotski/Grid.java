@@ -115,7 +115,6 @@ public class Grid
         	{
         		id_old = r.getID() - 1;//segna il blocco nuovo che è stato spostato
 				add_move();
-        	
         	}
 		}
 	}
@@ -135,7 +134,35 @@ public class Grid
             int x = (int) (mouseX % colonne)*gridSize;//trovo la casella in cui voglio muovermi
             int y = (int) (mouseY % righe)*gridSize;
             
+            int dim1 = pezzi.get(rectangle.getID() - 1).dim1;
+            int dim2 = pezzi.get(rectangle.getID() - 1).dim2;
+            
             coord c2 = new coord(x/100, y/100);//coordinata finale
+            
+            if (dim2 == 2)// se il pezzo ha dimensione 2
+            {
+            	if(c1.y == (c2.y-1))//controllo se si è selezionato la coordinata iniziale del blocco
+            	{
+            		if(c1.x != c2.x)//se non si vuole muovere a destra e a sinistra
+            		{
+            			c2.y = c1.y;//imposto coordinata y finale uguale a quella iniziale 
+                		x -= 100;	
+            		}
+            		
+            	}
+            }
+            
+            if (dim1 == 2)
+            {
+            	if(c1.x == (c2.x-1))
+            	{
+            		if(c1.y != c2.y)
+            		{
+            			c2.x = c1.x;
+                		y -= 100;	
+            		}
+               	}
+            }
             
             //controllo se la mossa che vuole fare è fattibile
             boolean check = pezzi.get(rectangle.getID() - 1).controlla_mossa(new mossa(c1, c2, rectangle.getID()), mat);

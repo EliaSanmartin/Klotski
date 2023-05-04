@@ -9,6 +9,8 @@ public class GeometricShape {
     private int gridX;
     private int gridY;
     private int id;
+    
+    
     //inizializza il rettangolo con larghezza altezza e posizione nella griglia e colore, posizione su griglia elia
     public GeometricShape(int height, int width, int gridX, int gridY, Color rectangleColor, int id_) {
     	this.gridX = gridX;
