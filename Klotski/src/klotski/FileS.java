@@ -55,7 +55,7 @@ public class FileS
 	public void add(mossa m)
 	{
 		String s;
-		s = "\n" + m.c_in.x+","+m.c_in.y + "," + m.dir + "," + m.num_pezzo;
+		s = "\n" + m.c_in.getX()+","+m.c_in.getY() + "," + m.dir + "," + m.num_pezzo;
 
 		contenuto.add(s);
 	}

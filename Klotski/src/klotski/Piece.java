@@ -6,59 +6,69 @@ import javafx.scene.shape.Rectangle;
 
 public class Piece 
 {
-	int dim1;
-	int dim2;
-	coord coord = new coord(99,99);
+	//dimensine pezzo
+	private int dim1;
+	private int dim2;
+	
+	//coordinate del pezzo
+	private Coord coord = new Coord(99,99);
 	private Rectangle rectangle;
 	
+	//costruttore
 	public Piece(int y, int x)
 	{
 		dim1 = x; 
 		dim2 = y;	
 	}
 	
+	//posiziona pezzo a coordinate impossibili
 	public void reset()
 	{
-		coord.x=99;
-		coord.y=99;
+		coord.setX(99);
+		coord.setY(99);
 	}
 	
 	 public Rectangle getRectangle() 
 	 {
 	        return rectangle;
 	 }
-
+	 
+	 public Coord getCoord() 
+    {
+        return coord;
+    }
+	 
     public int getX() 
     {
-        return coord.x;
+        return coord.getX();
     }
 
     public int getY()
     {
-        return coord.y;
+        return coord.getY();
     }
 		
+    public int getDim1()
+    {
+        return dim1;
+    }
+    
+    public int getDim2()
+    {
+        return dim2;
+    }
 	
+    //controlla se la mossa proposta è possibile
 	public boolean controlla_mossa(mossa m, int [][] tab)
 	{
 		
-			
-		if (m.dir == 'U')
-			m.c_in = m.c_in.up();
-		else if(m.dir == 'R')
-			m.c_in = m.c_in.right();
-		else if(m.dir == 'D')
-			m.c_in = m.c_in.down();
-		else if(m.dir == 'L')
-			m.c_in = m.c_in.left();
-		
 		//controllo se si fa una mossa valida o se è la prima mossa
 
-			if (coord.x != 99)
+			if (coord.getX() != 99)//se il pezzo è gia nella griglia
 			{
-				int diff1 = coord.x - m.c_in.x;
+				int diff1 = coord.getX() - m.c_fin.getX();//differenza asse x
 			
-				int diff2 = coord.y - m.c_in.y;;
+				int diff2 = coord.getY() - m.c_fin.getY();// differenza asse y
 				
 				if (diff1 < 0)
 					diff1 = -diff1;
@@ -66,32 +76,34 @@ public class Piece
 				if (diff2 < 0)
 					diff2 = -diff2;					
 				
-				if (diff1 + diff2 != 1)
+				if (diff1 + diff2 != 1)//se fa più di una mossa
 					return false;
 			}
 
 			
-			//controllo se la possa è plausibile
-			if ((tab.length < m.c_in.x + dim1) || (tab[0].length < m.c_in.y+dim2))
+			//controllo se esce dalla griglia
+			if ((tab.length < m.c_fin.getX() + dim1) || (tab[0].length < m.c_fin.getY()+dim2))
 			{
 				return false;
 			}
 			
-
-			if((m.c_in.x < 0) || (m.c_in.y < 0))
+			//controllo se coordinate siano positive
+			if((m.c_fin.getX() < 0) || (m.c_fin.getY() < 0))
 			{
 				return false;
 			}
+			
 			//controllo se dove voglio posizionarmi c'è spazio
-			for (int i=m.c_in.x; i<m.c_in.x+dim1; i++)
-				for (int j=m.c_in.y; j<m.c_in.y+dim2; j++)
+			for (int i=m.c_fin.getX(); i<m.c_fin.getX()+dim1; i++)
+				for (int j=m.c_fin.getY(); j<m.c_fin.getY()+dim2; j++)
 					if ((tab[i][j] != 0) && (tab[i][j] != m.num_pezzo))				
 						return false;
-		return true;
+			
+		return true;//se tutto va bene restituisci true
 	}
 	
 	
-	
+	//dando per scontato che la mossa sia possibile esegue tal mossa (cambia coordinate e matrice)
 	public boolean imposta_coord(mossa M, int [][] tab)
 	{
 		// muovo pezzo
@@ -104,20 +116,8 @@ public class Piece
 		{
 			return false;
 		}
-
-		if (m.dir == 'U')
-			coord = coord.up();
-		else if(m.dir == 'R')
-			coord = coord.right();
-		else if(m.dir == 'D')
-			coord = coord.down();
-		else if(m.dir == 'L')
-			coord = coord.left();
-
-		if (coord.x == 99)
-		{
-			coord = m.c_in;
-		}
+		coord = m.c_fin;
+		
 		
 		//cancello pezzo se già presente
 		for (int i=0; i<tab.length; i++)
@@ -125,42 +125,12 @@ public class Piece
 				if (tab[i][j] == m.num_pezzo)
 					tab[i][j] = 0;
 		
-		for (int i=coord.x; i<coord.x + dim1; i++)
-			for (int j=coord.y; j<coord.y + dim2; j++)
+		//posiziono il pezzo nella griglia
+		for (int i=coord.getX(); i<coord.getX() + dim1; i++)
+			for (int j=coord.getY(); j<coord.getY() + dim2; j++)
 				tab[i][j] = m.num_pezzo;
 			
 		return true;	
 	}
 	
-
-	public boolean controlla_mosse(int [][] tab)
-	{
-			boolean trovato = false;
-		//su
-			if(controlla_mossa(new mossa(coord, 'U', tab[coord.x][coord.y] ), tab))	
-			{
-				tab[coord.x - 1][coord.y] = 50; 
-				trovato = true;
-			}			
-				
-		//destra
-			if(controlla_mossa(new mossa(coord, 'R', tab[coord.x][coord.y] ), tab))
-			{
-				tab[coord.x][coord.y + dim2] = 51; 
-				trovato = true;
-			}
-		//giù
-			if(controlla_mossa(new mossa(coord, 'D', tab[coord.x][coord.y] ), tab))
-			{
-				tab[coord.x + dim1][coord.y] = 52; 
-				trovato = true;
-			}
-		//sinistra	
-			if(controlla_mossa(new mossa(coord, 'L', tab[coord.x][coord.y] ), tab))
-			{
-				tab[coord.x][coord.y - 1] = 53; 
-				trovato = true;
-			}
-		return trovato;
-	}
 }

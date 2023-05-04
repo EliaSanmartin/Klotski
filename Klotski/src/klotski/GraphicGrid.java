@@ -26,10 +26,10 @@ public class GraphicGrid {
         	
             mouseX = mouseEvent.getSceneX()/gridSize;
             mouseY = mouseEvent.getSceneY()/gridSize;   
-            coord c1 = new coord(rectangle.getX()/100, rectangle.getY()/100);
+            Coord c1 = new Coord(rectangle.getX()/100, rectangle.getY()/100);
             int x = (int) (mouseX % gridWidth)*gridSize;
             int y = (int) (mouseY % gridHeight)*gridSize;
-            coord c2 = new coord(x/100, y/100);
+            Coord c2 = new Coord(x/100, y/100);
             
             //parte di codice da modificare per Elia x e y coorispondono cordinate pixel di 100 in 100 
             //quindi basta dividerle per 100 se vuoi avere le cordinate tipo 1,0

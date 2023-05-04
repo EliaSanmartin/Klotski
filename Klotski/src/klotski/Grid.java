@@ -1,10 +1,12 @@
 package klotski;
 import java.util.*;
 
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 
 public class Grid 
@@ -29,15 +31,15 @@ public class Grid
 	List<Piece> pezzi = new ArrayList<>();
 	List<mossa> mosse = new ArrayList<>();
 	
-	FileS salvataggio = new FileS("salvataggi/prova.txt");
+	FileS salvataggio = new FileS("salvataggi/prova.txt");	
 	
-
-    private AnchorPane gameViewer;
+	@FXML
+    private Text moves;
 	
-	public Grid(AnchorPane gameViewer)
+	public Grid(Text m)
 	{
 		salvataggio.contenuto.set(0, "X,0");//formazione e num_mosse
-		this.gameViewer = gameViewer;
+		this.moves = m;
 		imposta_formazione(1);
 		
 	}
@@ -103,8 +105,8 @@ public class Grid
 			Node node = r.getRectangle();
 
 			//-----sposto quadrato-----
-			node.setLayoutX(m.c_fin.y*100 - r.getX());
-			node.setLayoutY(m.c_fin.x*100 - r.getY());
+			node.setLayoutX(m.c_fin.getY()*100 - r.getX());
+			node.setLayoutY(m.c_fin.getX()*100 - r.getY());
 
 			//-----esegui mossa-----
 			pezzi.get(m.num_pezzo-1).imposta_coord(m, mat);
@@ -129,23 +131,23 @@ public class Grid
             mouseX = mouseEvent.getSceneX()/gridSize;	//trovo coord x del mouse
             mouseY = mouseEvent.getSceneY()/gridSize;   //trovo coord y del mouse
             
-            coord c1 = pezzi.get(rectangle.getID() - 1).coord;//coordinata iniziale
+            Coord c1 = pezzi.get(rectangle.getID() - 1).getCoord();//coordinata iniziale
             
             int x = (int) (mouseX % colonne)*gridSize;//trovo la casella in cui voglio muovermi
             int y = (int) (mouseY % righe)*gridSize;
             
-            int dim1 = pezzi.get(rectangle.getID() - 1).dim1;
-            int dim2 = pezzi.get(rectangle.getID() - 1).dim2;
+            int dim1 = pezzi.get(rectangle.getID() - 1).getDim1();
+            int dim2 = pezzi.get(rectangle.getID() - 1).getDim2();
             
-            coord c2 = new coord(x/100, y/100);//coordinata finale
+            Coord c2 = new Coord(x/100, y/100);//coordinata finale
             
             if (dim2 == 2)// se il pezzo ha dimensione 2
             {
-            	if(c1.y == (c2.y-1))//controllo se si è selezionato la coordinata iniziale del blocco
+            	if(c1.getY() == (c2.getY()-1))//controllo se si è selezionato la coordinata iniziale del blocco
             	{
-            		if(c1.x != c2.x)//se non si vuole muovere a destra e a sinistra
+            		if(c1.getX() != c2.getX())//se non si vuole muovere a destra e a sinistra
             		{
-            			c2.y = c1.y;//imposto coordinata y finale uguale a quella iniziale 
+            			c2.setY(c1.getY());//imposto coordinata y finale uguale a quella iniziale 
                 		x -= 100;	
             		}
             		
@@ -154,11 +156,11 @@ public class Grid
             
             if (dim1 == 2)
             {
-            	if(c1.x == (c2.x-1))
+            	if(c1.getX() == (c2.getX()-1))
             	{
-            		if(c1.y != c2.y)
+            		if(c1.getY() != c2.getY())
             		{
-            			c2.x = c1.x;
+            			c2.setX(c1.getX());
                 		y -= 100;	
             		}
                	}
@@ -192,18 +194,19 @@ public class Grid
         });
     }
     
-	
+	public int getNumMove()
+	{
+		return num_mosse;
+	}
 	private void add_move()
 	{
 		num_mosse += 1;	//aumenta variabile numero di mosse di uno
+		moves.setText("Moves: "+num_mosse);
 		System.out.print(num_mosse +"\n");
 		
 		//modifico salvataggio che sarà il contenuto del file dove verrà salvata la partita
 		salvataggio.add_mossa(num_mosse);
+		
 	}
-	
-    public AnchorPane getGameViewer() {
-        return gameViewer;
-    }
 
 }

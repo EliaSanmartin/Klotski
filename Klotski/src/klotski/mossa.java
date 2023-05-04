@@ -2,12 +2,12 @@ package klotski;
 
 public class mossa
 {
-	coord c_in;
-	coord c_fin;
+	Coord c_in;
+	Coord c_fin;
 	char dir;
 	int num_pezzo;
 	
-	public mossa(coord cin, coord cfin, int pezzo)
+	public mossa(Coord cin, Coord cfin, int pezzo)
 	{
 		c_in = cin;
 		c_fin = cfin;
@@ -35,7 +35,7 @@ public class mossa
 		
 	}
 	
-	public mossa(coord cin, char DIR, int pezzo)
+	public mossa(Coord cin, char DIR, int pezzo)
 	{
 		c_in = cin;	
 		dir = DIR;
@@ -56,6 +56,10 @@ public class mossa
 		 case 'R':
 			 c_fin = c_in.right();
 			 break;
+		default:
+			c_fin = c_in;
+			break;
+			
 		}
 		
 		num_pezzo = pezzo;
@@ -65,7 +69,7 @@ public class mossa
 	{
 		
 		char d = 'D';
-		coord c = new coord(c_in.y, c_in.x);
+		Coord c = new Coord(c_in.getY(), c_in.getX());
 		
 		if(dir == 'U')
 		{

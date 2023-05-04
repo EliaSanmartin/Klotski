@@ -28,10 +28,11 @@ public class Controller implements Initializable {
 	//variabili per il pannello che fa visualizzare il gioco nella scena play
 	@FXML
 	private AnchorPane gameViewer;
-	private Text moves = new Text("fdfdfdfdfdfdfdfffffffffffffffffffffffffffffffffff");
-	private StackPane mos = new StackPane(moves);
+	@FXML
+	private Text moves;
 	
 	private Grid grid;
+	
 	
 	//va alla scena Menu
 	public void switchToMenu(ActionEvent event) throws IOException {
@@ -114,7 +115,7 @@ public class Controller implements Initializable {
 	public void saveGame(ActionEvent event) throws IOException {
 		System.out.println("Modificami per salvare il gioco");
 	}
-			
+
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		
@@ -122,10 +123,12 @@ public class Controller implements Initializable {
 		
 		
     	if (gameViewer!= null) {
-    		grid = new Grid(gameViewer);
-    		grid.imposta_formazione(level);
 
-    		
+    		grid = new Grid(moves);
+    		moves.setText("Moves: " + grid.getNumMove());
+
+    		grid.imposta_formazione(level);
+    		  		
     		
     		for (int i=0; i<grid.rectangles.size(); i++) 
     		{
