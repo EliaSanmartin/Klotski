@@ -29,7 +29,7 @@ public class Grid
 	
 	ArrayList<GeometricShape> rectangles = new ArrayList<>();
 	List<Piece> pezzi = new ArrayList<>();
-	List<mossa> mosse = new ArrayList<>();
+	List<Mossa> mosse = new ArrayList<>();
 	
 	FileS salvataggio = new FileS("salvataggi/prova.txt");	
 	
@@ -100,7 +100,7 @@ public class Grid
 		if(mosse.size() != 0)
 		{
 			
-			mossa m = mosse.get(mosse.size()-1).reverse();//trovo la mossa contraria all'ultima fatta
+			Mossa m = mosse.get(mosse.size()-1).reverse();//trovo la mossa contraria all'ultima fatta
 			GeometricShape r = rectangles.get(m.num_pezzo - 1);//trovo quadrato da muovere
 			Node node = r.getRectangle();
 
@@ -167,12 +167,12 @@ public class Grid
             }
             
             //controllo se la mossa che vuole fare è fattibile
-            boolean check = pezzi.get(rectangle.getID() - 1).controlla_mossa(new mossa(c1, c2, rectangle.getID()), mat);
+            boolean check = pezzi.get(rectangle.getID() - 1).controlla_mossa(new Mossa(c1, c2, rectangle.getID()), mat);
             //la condizione è true solo se è possibile fare la mossa 
              
             if(check)//se la mossa è possibile
             {
-            	mosse.add(new mossa(c1, c2, rectangle.getID()));//aggiungo a lista mosse
+            	mosse.add(new Mossa(c1, c2, rectangle.getID()));//aggiungo a lista mosse
       	
             	//sposto il rettangolo graficamente
             	node.setLayoutX(x - rectangle.getX());

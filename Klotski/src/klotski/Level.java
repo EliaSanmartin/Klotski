@@ -52,16 +52,16 @@ public class Level {
 			 
 			 
 			 
-		 	pieces.get(0).imposta_coord(new mossa(new Coord(1, 0),'N', 1), mat);
-			pieces.get(1).imposta_coord(new mossa(new Coord(1, 2),'N', 2), mat);
-			pieces.get(2).imposta_coord(new mossa(new Coord(0, 0),'N', 3), mat);
-			pieces.get(3).imposta_coord(new mossa(new Coord(3, 0),'N', 4), mat);
-			pieces.get(4).imposta_coord(new mossa(new Coord(3, 2),'N', 5), mat);
-			pieces.get(5).imposta_coord(new mossa(new Coord(0, 2),'N', 6), mat);
-			pieces.get(6).imposta_coord(new mossa(new Coord(0, 4),'N', 7), mat);
-			pieces.get(7).imposta_coord(new mossa(new Coord(1, 3),'N', 8), mat);
-			pieces.get(8).imposta_coord(new mossa(new Coord(2, 3),'N', 9), mat);
-			pieces.get(9).imposta_coord(new mossa(new Coord(3, 4),'N', 10), mat);
+		 	pieces.get(0).imposta_coord(new Mossa(new Coord(1, 0),'N', 1), mat);
+			pieces.get(1).imposta_coord(new Mossa(new Coord(1, 2),'N', 2), mat);
+			pieces.get(2).imposta_coord(new Mossa(new Coord(0, 0),'N', 3), mat);
+			pieces.get(3).imposta_coord(new Mossa(new Coord(3, 0),'N', 4), mat);
+			pieces.get(4).imposta_coord(new Mossa(new Coord(3, 2),'N', 5), mat);
+			pieces.get(5).imposta_coord(new Mossa(new Coord(0, 2),'N', 6), mat);
+			pieces.get(6).imposta_coord(new Mossa(new Coord(0, 4),'N', 7), mat);
+			pieces.get(7).imposta_coord(new Mossa(new Coord(1, 3),'N', 8), mat);
+			pieces.get(8).imposta_coord(new Mossa(new Coord(2, 3),'N', 9), mat);
+			pieces.get(9).imposta_coord(new Mossa(new Coord(3, 4),'N', 10), mat);
 			
 		
 		    break;
@@ -75,12 +75,12 @@ public class Level {
 				 
 				 
 				 
-			 	pieces.get(0).imposta_coord(new mossa(new Coord(1, 0),'N', 1), mat);
-				pieces.get(1).imposta_coord(new mossa(new Coord(1, 2),'N', 2), mat);
-				pieces.get(2).imposta_coord(new mossa(new Coord(0, 0),'N', 3), mat);
-				pieces.get(3).imposta_coord(new mossa(new Coord(3, 0),'N', 4), mat);
-				pieces.get(4).imposta_coord(new mossa(new Coord(3, 2),'N', 5), mat);
-				pieces.get(5).imposta_coord(new mossa(new Coord(0, 2),'N', 6), mat);
+			 	pieces.get(0).imposta_coord(new Mossa(new Coord(1, 0),'N', 1), mat);
+				pieces.get(1).imposta_coord(new Mossa(new Coord(1, 2),'N', 2), mat);
+				pieces.get(2).imposta_coord(new Mossa(new Coord(0, 0),'N', 3), mat);
+				pieces.get(3).imposta_coord(new Mossa(new Coord(3, 0),'N', 4), mat);
+				pieces.get(4).imposta_coord(new Mossa(new Coord(3, 2),'N', 5), mat);
+				pieces.get(5).imposta_coord(new Mossa(new Coord(0, 2),'N', 6), mat);
 				
 				
 
@@ -95,10 +95,10 @@ public class Level {
 			  pieces.add(new Piece(1,1));
 				 
 				 
-			 	pieces.get(0).imposta_coord(new mossa(new Coord(1, 0),'N', 1), mat);
-			 	pieces.get(1).imposta_coord(new mossa(new Coord(1, 1),'N', 2), mat);
-			 	pieces.get(2).imposta_coord(new mossa(new Coord(0, 2),'N', 3), mat);
-			 	pieces.get(3).imposta_coord(new mossa(new Coord(2, 2),'N', 4), mat);
+			 	pieces.get(0).imposta_coord(new Mossa(new Coord(1, 0),'N', 1), mat);
+			 	pieces.get(1).imposta_coord(new Mossa(new Coord(1, 1),'N', 2), mat);
+			 	pieces.get(2).imposta_coord(new Mossa(new Coord(0, 2),'N', 3), mat);
+			 	pieces.get(3).imposta_coord(new Mossa(new Coord(2, 2),'N', 4), mat);
 			
 		    break;
 		    

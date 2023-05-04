@@ -52,7 +52,7 @@ public class FileS
 		
 	}
 	
-	public void add(mossa m)
+	public void add(Mossa m)
 	{
 		String s;
 		s = "\n" + m.c_in.getX()+","+m.c_in.getY() + "," + m.dir + "," + m.num_pezzo;

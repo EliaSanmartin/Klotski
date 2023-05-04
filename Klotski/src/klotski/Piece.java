@@ -59,7 +59,7 @@ public class Piece
     }
 	
     //controlla se la mossa proposta è possibile
-	public boolean controlla_mossa(mossa m, int [][] tab)
+	public boolean controlla_mossa(Mossa m, int [][] tab)
 	{
 		
 		//controllo se si fa una mossa valida o se è la prima mossa
@@ -104,12 +104,12 @@ public class Piece
 	
 	
 	//dando per scontato che la mossa sia possibile esegue tal mossa (cambia coordinate e matrice)
-	public boolean imposta_coord(mossa M, int [][] tab)
+	public boolean imposta_coord(Mossa M, int [][] tab)
 	{
 		// muovo pezzo
 		//modifico coordinate
 		
-		mossa m = new mossa(M.c_in, M.dir, M.num_pezzo);
+		Mossa m = new Mossa(M.c_in, M.dir, M.num_pezzo);
 		
 		
 		if (controlla_mossa(m, tab) == false)
