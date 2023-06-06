@@ -78,5 +78,15 @@
             <Font name="Britannic Bold" size="29.0" />
          </font>
       </Text>
+      <Text fx:id="moves1" fill="#2c80b4" layoutX="127.0" layoutY="562.0" strokeType="OUTSIDE" strokeWidth="0.0" text="↓" wrappingWidth="47.20001220703125">
+         <font>
+            <Font name="Britannic Bold" size="93.0" />
+         </font>
+      </Text>
+      <Text fx:id="moves11" fill="#2c80b4" layoutX="226.0" layoutY="562.0" strokeType="OUTSIDE" strokeWidth="0.0" text="↓" wrappingWidth="47.20001220703125">
+         <font>
+            <Font name="Britannic Bold" size="93.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

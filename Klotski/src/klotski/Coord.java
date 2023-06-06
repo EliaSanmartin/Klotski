@@ -11,17 +11,6 @@ public class Coord
 		this.y = y;	
 	}
 	
-	public Coord copy()
-	{
-		Coord c = new Coord(y, x);
-		return c;
-	}
-	
-	public void print()
-	{
-		System.out.println("[" + x + " - " + y + "]");
-	}
-	
 	public Coord up()
 	{
 		Coord c = new Coord(y,x);

@@ -2,10 +2,10 @@ package klotski;
 
 public class Mossa
 {
-	Coord c_in;
-	Coord c_fin;
-	char dir;
-	int num_pezzo;
+	protected Coord c_in;
+	protected Coord c_fin;
+	protected char dir;
+	protected int num_pezzo;
 	
 	public Mossa(Coord cin, Coord cfin, int pezzo)
 	{

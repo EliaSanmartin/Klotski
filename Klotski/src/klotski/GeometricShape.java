@@ -3,7 +3,7 @@ package klotski;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class GeometricShape {
+public class GeometricShape{
 
     private Rectangle rectangle;
     private int gridX;
@@ -33,14 +33,6 @@ public class GeometricShape {
 
     public int getY() {
         return gridY;
-    }
-    
-    public void setX(int a) {
-        gridX = a;
-    }
-
-    public void setY(int a) {
-        gridY = a;
     }
     
     public int getID() {

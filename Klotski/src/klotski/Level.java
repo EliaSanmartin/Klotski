@@ -5,29 +5,29 @@ import java.util.List;
 
 import javafx.scene.paint.Color;
 
-// pattern che incapsula l'oggetto (singleton)
-// manipoli l'array tramite le chiamate alla classe ed i metodi al posto di accedere direttamente all'array
-//tvb
+
+
 public class Level {
-	
-    private static Color colorBigSquare = Color.CORAL;
-    private static Color colorNormalSquare = Color.LIGHTSEAGREEN;
     
-	private List<Piece> pieces = new ArrayList<>();	
+	private List<Shape> pieces = new ArrayList<>();	
 	private ArrayList<GeometricShape> rectangles = new ArrayList<>();
 	
 	private int level;
 	private int [][] mat;
 	//costruttore
-	public Level(int l, int r, int c)
+	public Level(int level, int r, int c)
 	{
 		mat = new int[r][c];
-		level = l;
+		this.level = level;
 		set_level();
 	}
 	
-	public void set_level()
+	
+	
+	
+	private void set_level()
 	{
+
 		pieces.clear();
 		rectangles.clear();
 		
@@ -42,77 +42,95 @@ public class Level {
 		switch(level) {
 		 case 1:
 		   // primo livello
-			 
-			 pieces.add(new Piece(2,2));
-			 pieces.add(new Piece(2,1));
-			 for(int i=0; i<4;i++)
-				 pieces.add(new Piece(1,2));
-			 for(int i=0; i<4;i++)
-				 pieces.add(new Piece(1,1));
-			 
-			 
-			 
-		 	pieces.get(0).imposta_coord(new Mossa(new Coord(1, 0),'N', 1), mat);
-			pieces.get(1).imposta_coord(new Mossa(new Coord(1, 2),'N', 2), mat);
-			pieces.get(2).imposta_coord(new Mossa(new Coord(0, 0),'N', 3), mat);
-			pieces.get(3).imposta_coord(new Mossa(new Coord(3, 0),'N', 4), mat);
-			pieces.get(4).imposta_coord(new Mossa(new Coord(3, 2),'N', 5), mat);
-			pieces.get(5).imposta_coord(new Mossa(new Coord(0, 2),'N', 6), mat);
-			pieces.get(6).imposta_coord(new Mossa(new Coord(0, 4),'N', 7), mat);
-			pieces.get(7).imposta_coord(new Mossa(new Coord(1, 3),'N', 8), mat);
-			pieces.get(8).imposta_coord(new Mossa(new Coord(2, 3),'N', 9), mat);
-			pieces.get(9).imposta_coord(new Mossa(new Coord(3, 4),'N', 10), mat);
-			
-		
+			 mat = new int [][] {
+				  {3, 1, 1, 4},
+				  {3, 1, 1, 4},
+				  {6, 2, 2, 5},
+				  {6, 8, 9, 5},
+				  {7, 0, 0, 10}};
 		    break;
 	    
 		  case 2:
-		    // secondo livello
-			  pieces.add(new Piece(2,2));
-				 pieces.add(new Piece(2,1));
-				 for(int i=0; i<4;i++)
-					 pieces.add(new Piece(1,2));
-				 
-				 
-				 
-			 	pieces.get(0).imposta_coord(new Mossa(new Coord(1, 0),'N', 1), mat);
-				pieces.get(1).imposta_coord(new Mossa(new Coord(1, 2),'N', 2), mat);
-				pieces.get(2).imposta_coord(new Mossa(new Coord(0, 0),'N', 3), mat);
-				pieces.get(3).imposta_coord(new Mossa(new Coord(3, 0),'N', 4), mat);
-				pieces.get(4).imposta_coord(new Mossa(new Coord(3, 2),'N', 5), mat);
-				pieces.get(5).imposta_coord(new Mossa(new Coord(0, 2),'N', 6), mat);
-				
-				
-
+			  mat = new int [][] {
+				  {3, 1, 1, 4},
+				  {3, 1, 1, 4},
+				  {6, 2, 2, 5},
+				  {7, 8, 9, 10},
+				  {7, 0, 0, 10}};
 			    break;
 			
 		  case 3:
-			// terzo livello
-			  // secondo livello
-			  pieces.add(new Piece(1,1));
-			  pieces.add(new Piece(1,2));
-			  pieces.add(new Piece(1,1));
-			  pieces.add(new Piece(1,1));
-				 
-				 
-			 	pieces.get(0).imposta_coord(new Mossa(new Coord(1, 0),'N', 1), mat);
-			 	pieces.get(1).imposta_coord(new Mossa(new Coord(1, 1),'N', 2), mat);
-			 	pieces.get(2).imposta_coord(new Mossa(new Coord(0, 2),'N', 3), mat);
-			 	pieces.get(3).imposta_coord(new Mossa(new Coord(2, 2),'N', 4), mat);
-			
+			  mat = new int [][] {
+				  {0, 1, 1, 0},
+				  {3, 1, 1, 4},
+				  {3, 2, 5, 4},
+				  {6, 2, 5, 8},
+				  {7, 7, 9, 10}};
 		    break;
 		    
 		  default:
 			 System.out.println("Qualcosa è andato storto.");
 			 return;
 		}
-		Coord c = pieces.get(0).getCoord();
-		rectangles.add(new GeometricShape(pieces.get(0).getDim1()*100, pieces.get(0).getDim2()*100, pieces.get(0).getY()*100 , pieces.get(0).getX()*100, Color.CORAL, 1)); 
-		for(int i=1; i<pieces.size();i++)
-			rectangles.add(new GeometricShape(pieces.get(i).getDim1()*100, pieces.get(i).getDim2()*100, pieces.get(i).getY()*100 , pieces.get(i).getX()*100, Color.LIGHTSEAGREEN, i+1));
+			
+		int num = 1;
+		int dim1=1;
+		int dim2=1;
+		Coord c = new Coord(99,99);
+		
+		while(true)
+		{
+			c.setX(99);
+			c.setY(99);
+			
+			dim1=1;
+			dim2=1;
+			for(int i=0;i<mat.length;i++)
+			{
+				for(int j=0;j<mat[0].length;j++)
+					if(mat[i][j] == num)
+					{
+						c.setX(j);
+						c.setY(i);
+						break;
+					}
+				if (c.getX() != 99)
+					break;
+			}
+			
+			if (c.getX() == 99)
+				break;
+			
+			
+			for(int i=1;i<mat.length-c.getY();i++)
+				if(mat[i+c.getY()][c.getX()] == num)
+					dim1 ++;
+				else
+					break;
+			for(int i=1;i<mat[0].length - c.getX();i++)
+				if(mat[c.getY()][c.getX()+i] == num)
+					dim2 ++;
+				else
+					break;
+			
+			
+			pieces.add(new Shape(dim2, dim1, c));
+			Color col = Color.LIGHTSEAGREEN;//CORAL;
+			if (num == 1)
+				{
+					col = Color.CORAL;
+					if(level == 2)
+						col = Color.BLUEVIOLET;
+					else if(level == 3)
+						col = Color.CRIMSON;
+				}
+			
+			rectangles.add(new GeometricShape(dim1*100, dim2*100, c.getX()*100 , c.getY()*100, col, num)); 
+			num ++;
+		}
 	}
 	
-	public List<Piece> getPieces()
+	public List<Shape> getPieces()
 	{
 		return pieces;
 	}
@@ -128,10 +146,7 @@ public class Level {
 	}
 	 
 	
-	public int getSize() 
-	{
-		return rectangles.size();
-	}
+
 		
 
 }

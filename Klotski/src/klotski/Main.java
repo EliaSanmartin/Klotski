@@ -17,9 +17,6 @@ public class Main extends Application {
 	public void start(Stage stage) {
 		try {
 		
-			Grid scacc = new Grid();	
-			//scacc.new_partita();
-			
 			//scena iniziale
 			Parent root = FXMLLoader.load(getClass().getResource("Menu.fxml"));
 			Scene scene = new Scene(root);
